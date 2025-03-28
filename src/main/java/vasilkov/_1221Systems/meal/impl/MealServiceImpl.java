@@ -47,6 +47,7 @@ public class MealServiceImpl implements MealService {
     @Transactional
     public void addMeal(Long userId, MealRequest mealRequest) {
         User user = userService.getUserById(userId);
+
         Meal meal = new Meal();
         meal.setUser(user);
         meal.setDate(mealRequest.date());
@@ -116,7 +117,7 @@ public class MealServiceImpl implements MealService {
      * @param meals список приемов пищи
      * @return объект с суммарными значениями калорий, белков, жиров и углеводов
      */
-    private NutritionSummary computeNutritionSummary(List<Meal> meals) {
+    NutritionSummary computeNutritionSummary(List<Meal> meals) {
         return meals.stream()
                 .flatMap(meal -> meal.getMealDishes().stream())
                 .collect(Collectors.collectingAndThen(Collectors.toList(), mealDishes ->

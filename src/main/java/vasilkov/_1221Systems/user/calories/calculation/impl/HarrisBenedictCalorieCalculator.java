@@ -50,7 +50,8 @@ public class HarrisBenedictCalorieCalculator implements CalorieCalculator {
      * @param user пользователь для которого расчитываем BMR
      * @return BMR
      */
-    private double calculateBMR(User user) {
+    //Сделал package-private для удобстава тестирования
+    double calculateBMR(User user) {
         if (Gender.MALE.equals(user.getGender())) {
             return (10 * user.getWeight()) + (6.25 * user.getHeight()) - (5 * user.getAge()) + 5;
         } else {
