@@ -100,7 +100,7 @@ class MealControllerTest {
         when(mealServiceImpl.getHistory(userId, startDate, endDate))
                 .thenReturn(expectedHistory);
 
-   
+
         ResponseEntity<NutritionHistory> response =
                 mealController.getHistory(userId, startDate, endDate);
 
