@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/calorie_tracker
+      - DB_USERNAME=admin
+      - DB_PASSWORD=admin
+    ports:
+      - "10101:10101"
+    depends_on:
+      db:
+        condition: service_started
+    restart: unless-stopped
+    networks:
+      - calorie-network
+
+  db:
+    image: postgres:latest
+    environment:
+      - POSTGRES_DB=calorie_tracker
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+    ports:
+      - "5432:5432"
+    networks:
+      - calorie-network
+
+networks:
+  calorie-network:
+    driver: bridge
